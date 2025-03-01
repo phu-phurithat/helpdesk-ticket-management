@@ -1,0 +1,51 @@
+package com.phu.ticket_service;
+
+import com.phu.ticket_service.ticket.TicketMapper;
+import com.phu.ticket_service.ticket.TicketRepository;
+import com.phu.ticket_service.ticket.model.Status;
+import com.phu.ticket_service.ticket.model.Ticket;
+import com.phu.ticket_service.ticket.model.TicketResponse;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.annotation.Rollback;
+
+@DataJpaTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NON_TEST)
+public class TicketRepositoryTest {
+
+    @Autowired
+    private TicketRepository ticketRepository;
+    private final TicketMapper ticketMapper = new TicketMapper();
+
+    @Test
+    @DisplayName("Test 1:Save Ticket Test")
+    @Rollback(value = false)
+    public void testCreateTicket() {
+        // Action
+        String title = "title";
+        String description = "description";
+        String contact = "contact";
+        String information = "information";
+        Status status = Status.PENDING;
+        Ticket ticket = Ticket.builder()
+                .title(title)
+                .description(description)
+                .contact(contact)
+                .information(information)
+                .status(status)
+                .build();
+
+        System.out.println(ticket);
+        // Save the user to the database
+        TicketResponse savedTicket = ticketMapper.toTicketResponse(
+                ticketRepository.save(ticket));
+        System.out.println(savedTicket);
+
+        // Verify
+        Assertions.assertNotNull(savedTicket.getId());
+    }
+}
