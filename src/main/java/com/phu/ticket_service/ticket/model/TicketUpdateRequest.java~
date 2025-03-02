@@ -21,6 +21,6 @@ public class TicketUpdateRequest {
     @Email(message = "Invalid email address")
     private String contact;
     @NotEmpty(message = "Status is required")
-    @Pattern(regexp = "(?i)PENDING|ACCEPTED|RESOLVED|REJECTED", message = "Status must be PENDING, ACCEPTED, RESOLVED, REJECTED")
+    @Pattern(regexp = "PENDING|ACCEPTED|RESOLVED|REJECTED", message = "Status must be PENDING, ACCEPTED, RESOLVED, REJECTED")
     private String status;
 }

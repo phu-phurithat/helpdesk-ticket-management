@@ -48,10 +48,10 @@ public class TicketService {
     }
 
 
-    public TicketResponse updateTicketStatus(Long id, String status) {
+    public void updateTicketStatus(Long id, String status) {
         Ticket ticket = ticketRepository.findById(id)
                 .orElseThrow(() -> new TicketNotFoundException("Ticket not found"));
         ticket.setStatus(Status.valueOf(status.toUpperCase()));
-        return ticketMapper.toTicketResponse(ticketRepository.save(ticket));
+        ticketRepository.save(ticket);
     }
 }
