@@ -30,8 +30,6 @@ public class TicketService {
                     Status.valueOf(status.toUpperCase()), pageable)
                     .map(ticketMapper::toTicketResponse);
         }
-        System.out.println(ticketRepository.findAll(pageable)
-                .map(ticketMapper::toTicketResponse));
         return ticketRepository.findAll(pageable)
                 .map(ticketMapper::toTicketResponse);
     }
