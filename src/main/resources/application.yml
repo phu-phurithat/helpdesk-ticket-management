@@ -20,3 +20,6 @@ server:
 logging:
   level:
     org.springframework.web: DEBUG
+
+springdoc:
+  packages-to-scan: com.phu.ticket_service.ticket
